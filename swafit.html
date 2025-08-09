@@ -1,816 +1,857 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwaFit - Transform - Professional Fitness Training</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SwatFit - Transform | Professional Fitness Coaching</title>
+    <meta name="description"
+        content="SwatFit - Online & in-person coaching for body recomposition, competition prep and long-term health. Join now for a custom plan." />
     <style>
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            box-sizing: border-box
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Inter, Arial, sans-serif;
             line-height: 1.6;
+            color: #222;
             overflow-x: hidden;
+            background: #fff
         }
 
-        /* Smooth scrolling */
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: smooth
         }
 
-        /* Navigation */
+        /* NAV */
         .navbar {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            transition: all 0.3s ease;
+            z-index: 1200;
+            padding: .9rem 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
+            transition: all .25s
         }
 
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
+            justify-content: space-between;
+            padding: 0 1.5rem
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
             color: #ff6b35;
+            font-weight: 800;
+            font-size: 1.6rem
         }
 
         .nav-links {
             display: flex;
-            list-style: none;
-            gap: 2rem;
+            gap: 1rem;
+            list-style: none
         }
 
         .nav-links a {
-            color: white;
+            color: #fff;
             text-decoration: none;
-            transition: color 0.3s ease;
+            padding: .35rem .5rem;
+            border-radius: 6px;
+            transition: background .15s
         }
 
         .nav-links a:hover {
-            color: #ff6b35;
+            background: rgba(255, 255, 255, 0.05)
         }
 
-        /* Hero Section with Parallax */
+        /* Sticky CTA */
+        .sticky-cta {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 1400
+        }
+
+        .cta-pill {
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+            color: #fff;
+            padding: .9rem 1.2rem;
+            border-radius: 999px;
+            font-weight: 700;
+            box-shadow: 0 8px 30px rgba(247, 147, 30, 0.18);
+            display: inline-flex;
+            gap: .6rem;
+            align-items: center
+        }
+
+        /* HERO */
         .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23222" width="1200" height="800"/><circle fill="%23ff6b35" cx="200" cy="200" r="100" opacity="0.1"/><circle fill="%23ff6b35" cx="800" cy="400" r="150" opacity="0.1"/><circle fill="%23ff6b35" cx="1000" cy="600" r="80" opacity="0.1"/></svg>');
-            background-size: cover;
-            background-attachment: fixed;
+            min-height: 85vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: white;
+            color: #fff;
+            padding: 4rem 1rem;
+            background: #111;
             position: relative;
+            overflow: hidden
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, .45), rgba(0, 0, 0, .6));
+            pointer-events: none
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1558611848-73f7eb4001d5?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(.6);
+            transform: scale(1.03)
         }
 
         .hero-content {
-            max-width: 800px;
-            padding: 0 2rem;
-            animation: fadeInUp 1s ease;
+            position: relative;
+            max-width: 1000px;
+            padding: 1rem
         }
 
         .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            font-weight: bold;
+            font-size: clamp(2rem, 6vw, 3.8rem);
+            line-height: 1.02;
+            margin-bottom: .6rem
         }
 
         .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+            font-size: 1.05rem;
+            opacity: .95;
+            margin-bottom: 1.2rem
         }
 
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
-            color: white;
-            padding: 1rem 2rem;
-            text-decoration: none;
+        .hero .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center
+        }
+
+        .btn {
+            padding: .9rem 1.2rem;
             border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            border: 0;
+            cursor: pointer;
+            font-weight: 700
         }
 
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        .btn-primary {
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, .18)
         }
 
-        /* About Section */
-        .about {
-            padding: 5rem 0;
-            background: #f8f9fa;
+        .btn-ghost {
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, .12)
+        }
+
+        /* TOP BADGE */
+        .top-badge {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            background: rgba(255, 255, 255, .06);
+            color: #fff;
+            padding: .45rem .8rem;
+            border-radius: 999px;
+            font-weight: 700;
+            z-index: 1400
+        }
+
+        /* SECTIONS */
+        .section {
+            padding: 4.5rem 1rem
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1.2rem
         }
 
         .section-title {
-            text-align: center;
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            color: #333;
-            position: relative;
+            font-size: 2.2rem;
+            margin-bottom: 1.2rem;
+            color: #111;
+            position: relative
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
-            border-radius: 2px;
+        .section-sub {
+            color: #666;
+            margin-bottom: 1.6rem
         }
 
-        .about-grid {
+        /* WHY CHOOSE */
+        .why-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem
         }
 
-        .about-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: transform 0.3s ease;
+        .why-card {
+            background: #fff;
+            padding: 1.4rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .06);
+            text-align: center
         }
 
-        .about-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .about-icon {
-            font-size: 3rem;
+        .why-card h4 {
             color: #ff6b35;
-            margin-bottom: 1rem;
+            margin-bottom: .6rem
         }
 
-        /* Transformations Section */
-        .transformations {
-            padding: 5rem 0;
-            background: #222;
-            color: white;
+        /* FOUNDER */
+        .founder {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap
         }
 
-        .transformations .section-title {
-            color: white;
+        .founder-photo {
+            flex: 0 0 220px;
+            height: 220px;
+            border-radius: 14px;
+            background-image: url('./Swafit/bg3.jpg');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .12)
         }
 
-        .transformation-grid {
+        .founder-bio {
+            flex: 1
+        }
+
+        .founder-bio h3 {
+            color: #111;
+            margin-bottom: .4rem
+        }
+
+        .founder-meta {
+            color: #666;
+            margin-bottom: .8rem
+        }
+
+        .badges {
+            display: flex;
+            gap: .6rem;
+            flex-wrap: wrap
+        }
+
+        .badge {
+            background: rgba(255, 107, 53, .08);
+            color: #ff6b35;
+            padding: .35rem .6rem;
+            border-radius: 8px;
+            font-weight: 700
+        }
+
+        /* HOW IT WORKS */
+        .steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem
         }
 
-        .transformation-card {
-            background: #333;
-            border-radius: 15px;
+        .step {
+            background: #fff;
+            padding: 1.2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .06);
+            text-align: center
+        }
+
+        .step-num {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+            color: #fff;
+            display: inline-grid;
+            place-items: center;
+            margin-bottom: .8rem;
+            font-weight: 800
+        }
+
+        /* TRANSFORMATIONS (before/after slider simplified) */
+        .transform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem
+        }
+
+        .transform-card {
+            background: #111;
+            color: #fff;
+            border-radius: 12px;
+            padding: 0;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .25)
         }
 
-        .transformation-card:hover {
-            transform: scale(1.05);
-        }
-
-        .before-after-container {
-            position: relative;
-            height: 300px;
-            overflow: hidden;
-        }
-
-        .before-after-slider {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-
-        .before-image, .after-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        .ta-banner {
+            height: 200px;
             background-size: cover;
             background-position: center;
-        }
-
-        .before-image {
-            background: linear-gradient(45deg, #666, #888);
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: white;
+            align-items: flex-end;
+            padding: 1rem
         }
 
-        .after-image {
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: white;
-            clip-path: inset(0 50% 0 0);
-            transition: clip-path 0.3s ease;
+        .ta-info {
+            padding: 1rem
         }
 
-        .transformation-card:hover .after-image {
-            clip-path: inset(0 0% 0 0);
-        }
-
-        .slider-handle {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            z-index: 10;
-        }
-
-        .transformation-info {
-            padding: 2rem;
-        }
-
-        .client-name {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: #ff6b35;
-        }
-
-        .transformation-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1rem;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #ff6b35;
-        }
-
-        /* Services Section */
-        .services {
-            padding: 5rem 0;
-            background: #f8f9fa;
-        }
-
-        .services-grid {
+        /* PLANS */
+        .plans {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem
         }
 
-        .service-card {
-            background: white;
-            padding: 3rem 2rem;
-            border-radius: 15px;
+        .plan {
+            background: #fff;
+            padding: 1.2rem;
+            border-radius: 12px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .06)
         }
 
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
-            transition: left 0.3s ease;
-            z-index: -1;
+        .plan h4 {
+            color: #111
         }
 
-        .service-card:hover::before {
-            left: 0;
-        }
-
-        .service-card:hover {
-            color: white;
-            transform: translateY(-10px);
-        }
-
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        .price {
+            font-size: 1.6rem;
+            font-weight: 800;
             color: #ff6b35;
-            transition: color 0.3s ease;
+            margin: 1rem 0
         }
 
-        .service-card:hover .service-icon {
-            color: white;
+        .plan ul {
+            list-style: none;
+            color: #444;
+            margin: 0 0 1rem
         }
 
-        /* Contact Section */
-        .contact {
-            padding: 5rem 0;
-            background: #222;
-            color: white;
+        .plan ul li {
+            padding: .25rem 0
         }
 
-        .contact .section-title {
-            color: white;
+        /* TESTIMONIALS */
+        .testi {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem
         }
 
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            margin-top: 3rem;
-        }
-
-        .form-group {
-            margin-bottom: 2rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
+        .testimonial {
+            background: #fff;
             padding: 1rem;
-            border: none;
-            border-radius: 10px;
-            background: #333;
-            color: white;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .06)
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            background: #444;
-            box-shadow: 0 0 0 2px #ff6b35;
+        .testi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem
+        }
+
+        /* FAQ */
+        .faq {
+            max-width: 900px;
+            margin: 0 auto
+        }
+
+        .q {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: .8rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .04)
+        }
+
+        .q p {
+            color: #444
+        }
+
+        .q summary {
+            font-weight: 700
+        }
+
+        /* CONTACT */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 1.2rem
+        }
+
+        @media (max-width:900px) {
+            .contact-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: .85rem;
+            border-radius: 10px;
+            border: 1px solid #e6e6e6;
+            margin-bottom: .8rem
         }
 
         .submit-btn {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
-            color: white;
-            border: none;
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+            color: #fff;
+            padding: .9rem;
             border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+            border: 0;
+            width: 100%;
+            font-weight: 800
         }
 
         /* Footer */
-        .footer {
+        footer {
             background: #111;
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
+            color: #ddd;
+            padding: 2rem 1rem;
+            text-align: center
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* UTILS */
+        .muted {
+            color: #666
         }
 
-        .fade-in {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
+        .flex {
+            display: flex;
+            align-items: center;
+            gap: .6rem
         }
 
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
+        /* small screens */
+        @media (max-width:768px) {
             .nav-links {
-                display: none;
+                display: none
             }
-            
-            .transformation-grid {
-                grid-template-columns: 1fr;
+
+            .founder {
+                flex-direction: column
             }
-            
-            .section-title {
-                font-size: 2rem;
+
+            .hero {
+                padding: 3.5rem 1rem
             }
         }
     </style>
 </head>
+
 <body>
-    <!-- Navigation -->
+
+    <div class="top-badge">SwatFit — Coach: Gyana Prasad</div>
+
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">FitTransform</div>
+            <div class="logo">SwatFit</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a href="#why">Why SwatFit</a></li>
+                <li><a href="#founder">About</a></li>
+                <li><a href="#how">How It Works</a></li>
                 <li><a href="#transformations">Results</a></li>
-                <li><a href="#services">Services</a></li>
+                <li><a href="#plans">Plans</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Transform Your Body</h1>
-            <p>Professional fitness training that delivers real results. Join hundreds of clients who've achieved their dream physique.</p>
-            <a href="#contact" class="cta-button">Start Your Journey</a>
-        </div>
-    </section>
+    <!-- STICKY CTA (floating) -->
+    <div class="sticky-cta">
+        <a class="cta-pill" href="#contact">Join Coaching →</a>
+    </div>
 
-    <!-- About Section -->
-    <section id="about" class="about">
+    <!-- HERO -->
+    <header id="home" class="hero">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-content container">
+            <h1>SwatFit — Transform Faster, Stay Stronger</h1>
+            <p>Engineer-turned-coach helping busy professionals achieve competition-ready physiques and sustainable body
+                recomposition with data-driven plans and human support.</p>
+            <div class="hero-actions">
+                <button class="btn btn-primary"
+                    onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Your
+                    Plan</button>
+                <a class="btn btn-ghost" href="#plans">See Plans</a>
+                <a class="btn btn-ghost" href="#free">Free Guide</a>
+            </div>
+            <div style="margin-top:1rem;color:rgba(255,255,255,.85)" class="muted">Includes weekly check-ins, progress
+                tracking & competition prep options.</div>
+        </div>
+    </header>
+
+    <!-- WHY CHOOSE SWATFIT -->
+    <section id="why" class="section">
         <div class="container">
-            <h2 class="section-title fade-in">Why Choose FitTransform</h2>
-            <div class="about-grid">
-                <div class="about-card fade-in">
-                    <div class="about-icon">💪</div>
-                    <h3>Expert Training</h3>
-                    <p>Certified trainers with 10+ years of experience in body transformation and strength building.</p>
+            <h2 class="section-title">Why Choose SwatFit</h2>
+            <p class="section-sub">Personalized coaching built with engineering precision — plans that fit your life,
+                not the other way around.</p>
+            <div class="why-grid">
+                <div class="why-card">
+                    <h4>Proven Process</h4>
+                    <p>Data-driven programming, weekly progress checks and measurable outcomes.</p>
                 </div>
-                <div class="about-card fade-in">
-                    <div class="about-icon">📊</div>
-                    <h3>Proven Results</h3>
-                    <p>Data-driven approach with measurable progress tracking and personalized workout plans.</p>
+                <div class="why-card">
+                    <h4>Coach from Experience</h4>
+                    <p>Engineer & coach who understands time constraints and system design for habit change.</p>
                 </div>
-                <div class="about-card fade-in">
-                    <div class="about-icon">🎯</div>
-                    <h3>Personalized Plans</h3>
-                    <p>Custom nutrition and training programs tailored to your specific goals and lifestyle.</p>
+                <div class="why-card">
+                    <h4>Competition Prep</h4>
+                    <p>Posing, peaking and customized prep for bodybuilding or physique shows.</p>
+                </div>
+                <div class="why-card">
+                    <h4>Flexible Online Coaching</h4>
+                    <p>Work with us remotely — weekly calls, messaging, and plan adjustments.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Transformations Section -->
-    <section id="transformations" class="transformations">
+    <!-- FOUNDER -->
+    <section id="founder" class="section" style="background:#f8f9fa">
         <div class="container">
-            <h2 class="section-title fade-in">Client Transformations</h2>
-            <div class="transformation-grid">
-                <div class="transformation-card fade-in">
-                    <div class="before-after-container">
-                        <div class="before-after-slider">
-                            <div class="before-image">
-                                <span>BEFORE<br>Starting Weight</span>
-                            </div>
-                            <div class="after-image">
-                                <span>AFTER<br>Goal Achieved</span>
-                            </div>
-                            <div class="slider-handle">⟷</div>
-                        </div>
-                    </div>
-                    <div class="transformation-info">
-                        <div class="client-name">Sarah Johnson</div>
-                        <p>"Lost 35 pounds and gained incredible confidence. The personalized approach made all the difference!"</p>
-                        <div class="transformation-stats">
-                            <div class="stat">
-                                <div class="stat-number">35</div>
-                                <div>lbs lost</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-number">6</div>
-                                <div>months</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-number">15%</div>
-                                <div>body fat</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="transformation-card fade-in">
-                    <div class="before-after-container">
-                        <div class="before-after-slider">
-                            <div class="before-image">
-                                <span>BEFORE<br>Beginner Level</span>
-                            </div>
-                            <div class="after-image">
-                                <span>AFTER<br>Competition Ready</span>
-                            </div>
-                            <div class="slider-handle">⟷</div>
-                        </div>
-                    </div>
-                    <div class="transformation-info">
-                        <div class="client-name">Mike Rodriguez</div>
-                        <p>"Gained 25 pounds of lean muscle and competed in my first bodybuilding show. Dreams do come true!"</p>
-                        <div class="transformation-stats">
-                            <div class="stat">
-                                <div class="stat-number">25</div>
-                                <div>lbs gained</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-number">8</div>
-                                <div>months</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-number">8%</div>
-                                <div>body fat</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="transformation-card fade-in">
-                    <div class="before-after-container">
-                        <div class="before-after-slider">
-                            <div class="before-image">
-                                <span>BEFORE<br>Post-Pregnancy</span>
-                            </div>
-                            <div class="after-image">
-                                <span>AFTER<br>Stronger Than Ever</span>
-                            </div>
-                            <div class="slider-handle">⟷</div>
-                        </div>
-                    </div>
-                    <div class="transformation-info">
-                        <div class="client-name">Emma Chen</div>
-                        <p>"After having twins, I thought I'd never feel strong again. This program proved me wrong!"</p>
-                        <div class="transformation-stats">
-                            <div class="stat">
-                                <div class="stat-number">42</div>
-                                <div>lbs lost</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-number">10</div>
-                                <div>months</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-number">18%</div>
-                                <div>body fat</div>
-                            </div>
-                        </div>
+            <h2 class="section-title">About the Founder</h2>
+            <div class="founder">
+                <div class="founder-photo" role="img" aria-label="Photo of the founder"></div>
+                <div class="founder-bio">
+                    <h3>Swetabahan Behera — Engineer & Performance Coach</h3>
+                    <div class="founder-meta">Dual-Identity engineer, certified strength coach, competitor & long-time
+                        coach for fat loss, muscle retention and contest prep.</div>
+                    <p>SwatFit was born to combine engineering-style systems with human-centered coaching. I focus on
+                        simple, high-leverage habits, realistic timelines, and plans you can follow for years.</p>
+                    <div class="badges" style="margin-top:.8rem">
+                        <span class="badge">10+ yrs training</span>
+                        <span class="badge">Competition Prep</span>
+                        <span class="badge">Evidence-based</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
+    <!-- HOW IT WORKS -->
+    <section id="how" class="section">
         <div class="container">
-            <h2 class="section-title fade-in">Our Services</h2>
-            <div class="services-grid">
-                <div class="service-card fade-in">
-                    <div class="service-icon">🏋️</div>
-                    <h3>Personal Training</h3>
-                    <p>One-on-one sessions with certified trainers focused on your specific goals and fitness level.</p>
+            <h2 class="section-title">How SwatFit Coaching Works</h2>
+            <p class="section-sub">A simple, repeatable process designed to produce long-term results.</p>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <h4>Apply</h4>
+                    <p class="muted">Fill the quick form to tell us your goals.</p>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">🥗</div>
-                    <h3>Nutrition Coaching</h3>
-                    <p>Personalized meal plans and nutrition guidance to fuel your transformation journey.</p>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <h4>Consult</h4>
+                    <p class="muted">Free call to review history, time, and goals.</p>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">👥</div>
-                    <h3>Group Classes</h3>
-                    <p>High-energy group workouts that build community while achieving incredible results.</p>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <h4>Plan</h4>
+                    <p class="muted">Receive your custom training & nutrition plan.</p>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">📱</div>
-                    <h3>Online Coaching</h3>
-                    <p>Remote training and support for those who prefer to work out from home or while traveling.</p>
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <h4>Execute</h4>
+                    <p class="muted">Weekly check-ins, track metrics & photos.</p>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">🏆</div>
-                    <h3>Competition Prep</h3>
-                    <p>Specialized training for bodybuilding, powerlifting, and physique competitions.</p>
+                <div class="step">
+                    <div class="step-num">5</div>
+                    <h4>Adjust</h4>
+                    <p class="muted">We tweak the plan for consistent progress.</p>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">🧘</div>
-                    <h3>Recovery & Wellness</h3>
-                    <p>Mobility work, stretching, and recovery protocols to keep you injury-free and performing at your best.</p>
+                <div class="step">
+                    <div class="step-num">6</div>
+                    <h4>Maintain</h4>
+                    <p class="muted">Long-term coaching or a handover to a self-managed plan.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <!-- TRANSFORMATIONS -->
+    <section id="transformations" class="section" style="background:#111;color:#fff">
         <div class="container">
-            <h2 class="section-title fade-in">Start Your Transformation</h2>
-            <form class="contact-form fade-in" id="contactForm">
-                <div class="form-group">
-                    <input type="text" placeholder="Your Name" required>
+            <h2 class="section-title">Client Transformations</h2>
+            <p class="section-sub" style="color:rgba(255,255,255,.7)">Real stories, real timelines — before/after photos
+                and stats.</p>
+            <div class="transform-grid" style="margin-top:1rem">
+                <div class="transform-card">
+                    <div class="ta-banner"
+                        style="background-image:url('./Swafit/gyana_2.png')">
+                        <div
+                            style="background:linear-gradient(180deg,transparent,#0006);padding:.6rem;border-radius:8px">
+                            BEFORE → AFTER</div>
+                    </div>
+                    <div class="ta-info">
+                        <div style="font-weight:800;color:#ff6b35">Gyana Prasad</div>
+                        <p class="muted" style="color:rgba(255,255,255,.8)">Lost 22 Kg · 6 months · 15% body fat</p>
+                        <p style="color:rgba(255,255,255,.9)">"Personalized, consistent and the progress tracking kept
+                            me accountable."</p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="email" placeholder="Your Email" required>
+
+                <div class="transform-card">
+                    <div class="ta-banner"
+                        style="background-image:url('./Swafit/nishan.png')">
+                        <div
+                            style="background:linear-gradient(180deg,transparent,#0006);padding:.6rem;border-radius:8px">
+                            BEFORE → AFTER</div>
+                    </div>
+                    <div class="ta-info">
+                        <div style="font-weight:800;color:#ff6b35">Nishant Panchal</div>
+                        <p class="muted" style="color:rgba(255,255,255,.8)">ICN Gold Medalist</p>
+                        <p style="color:rgba(255,255,255,.9)">"Structured overload and a system that respects my work
+                            schedule."</p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="tel" placeholder="Phone Number" required>
+
+                <div class="transform-card">
+                    <div class="ta-banner"
+                        style="background-image:url('https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=')">
+                        <div
+                            style="background:linear-gradient(180deg,transparent,#0006);padding:.6rem;border-radius:8px">
+                            BEFORE → AFTER</div>
+                    </div>
+                    <div class="ta-info">
+                        <div style="font-weight:800;color:#ff6b35">Emma Chen</div>
+                        <p class="muted" style="color:rgba(255,255,255,.8)">Post-pregnancy comeback · 10 months</p>
+                        <p style="color:rgba(255,255,255,.9)">"I got my confidence back and strength returned —
+                            sustainable coaching."</p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <textarea rows="5" placeholder="Tell us about your fitness goals..." required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Get Started Today</button>
-            </form>
+            </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <!-- PLANS -->
+    <section id="plans" class="section">
         <div class="container">
-            <p>&copy; 2024 FitTransform. All rights reserved. Transform your body, transform your life.</p>
+            <h2 class="section-title">Coaching Plans</h2>
+            <p class="section-sub">Choose the level of support that suits your goals — or apply for a custom plan.</p>
+            <div class="plans">
+                <div class="plan">
+                    <h4>Online Coaching</h4>
+                    <div class="price">₹5,999 / mo</div>
+                    <ul>
+                        <li>Custom training & nutrition</li>
+                        <li>Weekly check-ins</li>
+                        <li>Message support</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="applyPlan('Online Coaching')">Apply Now</button>
+                </div>
+                <div class="plan">
+                    <h4>Competition Prep</h4>
+                    <div class="price">₹12,999 / mo</div>
+                    <ul>
+                        <li>Posing & peaking</li>
+                        <li>In-depth macros & refeed strategy</li>
+                        <li>Peak week support</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="applyPlan('Competition Prep')">Apply Now</button>
+                </div>
+                <div class="plan">
+                    <h4>Custom Consultation</h4>
+                    <div class="price">One-time ₹2,499</div>
+                    <ul>
+                        <li>60-min consult call</li>
+                        <li>Actionable 8-week plan</li>
+                        <li>Follow-up 2 weeks</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="applyPlan('Consultation')">Book Consult</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="section" style="background:#f8f9fa">
+        <div class="container">
+            <h2 class="section-title">Testimonials</h2>
+            <p class="section-sub">Client stories, video clips and message screenshots.</p>
+            <div class="testi-grid">
+                <div class="testimonial">
+                    <div style="font-weight:800">Rohit K.</div>
+                    <p class="muted">Lost 12 kgs in 5 months while keeping strength — "The coaching fit my schedule."
+                    </p>
+                </div>
+                <div class="testimonial">
+                    <div style="font-weight:800">Nisha P.</div>
+                    <p class="muted">"Clear instructions, accountability and real empathy — best coach I've worked
+                        with."</p>
+                </div>
+                <div class="testimonial">
+                    <div style="font-weight:800">Amit S.</div>
+                    <p class="muted">"Competition prep was flawless — posing practice and peak plan nailed it."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq">
+                <details class="q">
+                    <summary>Do I need a gym?</summary>
+                    <p>No — plans are scaled for home or gym training depending on your equipment and goals.</p>
+                </details>
+                <details class="q">
+                    <summary>Are beginners welcome?</summary>
+                    <p>Yes. Plans start with fundamentals and scale intensity as you progress.</p>
+                </details>
+                <details class="q">
+                    <summary>Do you provide meal plans?</summary>
+                    <p>Yes — macro-friendly meal templates, swaps and guidance. We focus on sustainable choices.</p>
+                </details>
+                <details class="q">
+                    <summary>How often do we check progress?</summary>
+                    <p>Weekly check-ins are standard; frequency can be increased if needed.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- FREE GUIDE + INSTAGRAM FEED (placeholder) -->
+    <section id="free" class="section" style="background:#fff">
+        <div class="container">
+            <h2 class="section-title">Free Resources</h2>
+            <p class="section-sub">Grab a short guide to the first 30 days of a successful cut or recomp.</p>
+            <div style="display:flex;gap:1rem;flex-wrap:wrap">
+                <a class="btn btn-primary" href="#"
+                    onclick="alert('Download placeholder — upload your PDF or provide link to replace.')">Download
+                    30-Day Guide</a>
+                <a class="btn btn-ghost" href="https://instagram.com" target="_blank">See our Instagram</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT / APPLY -->
+    <section id="contact" class="section" style="background:#111;color:#fff;padding-bottom:6rem">
+        <div class="container">
+            <h2 class="section-title">Start Your Transformation</h2>
+            <p class="section-sub" style="color:rgba(255,255,255,.8)">Apply now — we'll follow up for a free consult
+                call.</p>
+            <div class="contact-grid">
+                <form id="contactForm" class="contact-form" onsubmit="handleSubmit(event)">
+                    <input id="name" type="text" placeholder="Full name" required />
+                    <input id="email" type="email" placeholder="Email" required />
+                    <input id="phone" type="tel" placeholder="Phone (WhatsApp preferred)" required />
+                    <textarea id="goals" rows="5" placeholder="Tell us about your goals, timeline & constraints"
+                        required></textarea>
+                    <input id="plan" type="hidden" value="" />
+                    <button class="submit-btn" type="submit">Apply & Schedule Call</button>
+                </form>
+
+                <div style="background:linear-gradient(180deg,#111,#0b0b0b);padding:1.2rem;border-radius:12px">
+                    <h4 style="color:#ff6b35">Quick Apply (WhatsApp)</h4>
+                    <p class="muted" style="color:rgba(255,255,255,.8)">Message us on WhatsApp to fast-track your
+                        application.</p>
+                    <a id="waLink" href="https://wa.me/919860000000" target="_blank" class="btn btn-primary"
+                        style="display:inline-block;margin-top:.6rem">Message on WhatsApp</a>
+
+                    <div style="margin-top:1rem;color:rgba(255,255,255,.8)">
+                        <strong>Or embed form:</strong>
+                        <div style="margin-top:.6rem;background:#000;border-radius:8px;padding:.6rem;color:#ddd">Google
+                            Form embed placeholder — replace with your form URL.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 SwatFit. All rights reserved. Built for busy professionals & competitors.</p>
+            <div style="margin-top:.6rem"><a href="#privacy"
+                    style="color:rgba(255,255,255,.6);text-decoration:none">Privacy</a> · <a href="#terms"
+                    style="color:rgba(255,255,255,.6);text-decoration:none">Terms</a></div>
         </div>
     </footer>
 
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a id="floatingWA" href="https://wa.me/919860000000" target="_blank"
+        style="position:fixed;right:18px;bottom:88px;z-index:1500;background:#25D366;padding:.85rem;border-radius:50%;box-shadow:0 10px 30px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800">WA</a>
+
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Parallax effect for hero section
+        // Smooth nav: highlight active section (simple)
+        const links = document.querySelectorAll('.nav-links a');
         window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
-        });
-
-        // Fade in animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Interactive before/after sliders
-        document.querySelectorAll('.before-after-slider').forEach(slider => {
-            let isMouseDown = false;
-            
-            slider.addEventListener('mouseenter', () => {
-                const afterImage = slider.querySelector('.after-image');
-                afterImage.style.clipPath = 'inset(0 0% 0 0)';
-            });
-            
-            slider.addEventListener('mouseleave', () => {
-                if (!isMouseDown) {
-                    const afterImage = slider.querySelector('.after-image');
-                    afterImage.style.clipPath = 'inset(0 50% 0 0)';
-                }
-            });
-            
-            slider.addEventListener('mousedown', (e) => {
-                isMouseDown = true;
-                updateSlider(e, slider);
-            });
-            
-            slider.addEventListener('mousemove', (e) => {
-                if (isMouseDown) {
-                    updateSlider(e, slider);
-                }
-            });
-            
-            document.addEventListener('mouseup', () => {
-                isMouseDown = false;
-            });
-            
-            // Touch events for mobile
-            slider.addEventListener('touchstart', (e) => {
-                updateSlider(e.touches[0], slider);
-            });
-            
-            slider.addEventListener('touchmove', (e) => {
-                e.preventDefault();
-                updateSlider(e.touches[0], slider);
+            const fromTop = window.scrollY + 120;
+            links.forEach(link => {
+                const section = document.querySelector(link.hash);
+                if (!section) return;
+                if (section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
+                    link.style.background = 'rgba(255,255,255,0.06)';
+                } else link.style.background = 'transparent';
             });
         });
 
-        function updateSlider(e, slider) {
-            const rect = slider.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const percentage = (x / rect.width) * 100;
-            const clampedPercentage = Math.max(0, Math.min(100, percentage));
-            
-            const afterImage = slider.querySelector('.after-image');
-            const handle = slider.querySelector('.slider-handle');
-            
-            afterImage.style.clipPath = `inset(0 ${100 - clampedPercentage}% 0 0)`;
-            handle.style.left = `${clampedPercentage}%`;
+        // Plan apply helper
+        function applyPlan(planName) {
+            document.getElementById('plan').value = planName;
+            document.getElementById('name').focus();
+            window.location.hash = '#contact';
+            window.scrollTo({ top: document.getElementById('contact').offsetTop - 80, behavior: 'smooth' });
         }
 
-        // Navbar background change on scroll
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 100) {
-                navbar.style.background = 'rgba(0, 0, 0, 0.95)';
-            } else {
-                navbar.style.background = 'rgba(0, 0, 0, 0.9)';
-            }
-        });
-
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        // Contact form submission (placeholder behaviour)
+        function handleSubmit(e) {
             e.preventDefault();
-            
-            // Show success message
-            const submitBtn = this.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            
-            submitBtn.textContent = 'Message Sent! ✓';
-            submitBtn.style.background = '#28a745';
-            
-            setTimeout(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.style.background = 'linear-gradient(45deg, #ff6b35, #f7931e)';
-                this.reset();
-            }, 3000);
-        });
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const plan = document.getElementById('plan').value || 'Not specified';
 
-        // Add loading animation
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.5s ease';
-            
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
-        });
+            // In real deploy: POST to your backend / Google Form / CRM
+            alert(`Thanks ${name}! We'll contact you on ${phone} about: ${plan}`);
+
+            // reset
+            e.target.reset();
+        }
+
+        // Small enhancement: open free guide anchor to top
+        document.querySelectorAll('a[href="#free"]').forEach(a => a.addEventListener('click', (ev) => { ev.preventDefault(); document.getElementById('free').scrollIntoView({ behavior: 'smooth' }); }));
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c8be9860937a1e',t:'MTc1NDc1ODE0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
+
 </html>
